@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Product>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="album py-5 bg-light">
+    <div class="container" style="margin-top:50px; margin-bottom:250px;">
+
+        <div class="row">
+            @foreach(var item in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" src="@item.Image" width="100%" height="225" alt="car detail img">
+                        <div class="card-body">
+                            <p class="card-text">@item.Title</p>
+                            <p class="card-text" >@item.Description</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                                    {
+                                        <a asp-controller="Product" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <a asp-controller="Product" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-sm btn-outline-secondary">Delete</a>
+
+                                    }
+                                </div>
+                                <p class="text-muted">@item.Price ₾</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+        </div>
+    </div>
+</div>
